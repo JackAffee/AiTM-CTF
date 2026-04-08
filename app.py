@@ -8,12 +8,37 @@ sessions = {}
 @app.route('/')
 def login():
     return '''
-    <h2>Microsoft Login</h2>
-    <form method="POST" action="/login">
-        Email: <input name="email"><br>
-        Password: <input name="password" type="password"><br>
-        <input type="submit">
-    </form>
+    <html>
+    <head>
+        <style>
+            body {
+                text-align: center;
+                font-family: Arial;
+                background: #552583;
+                color: white;
+                padding: 30px;
+            }
+            img {
+                width: 250px;
+                border-radius: 12px;
+                margin: 20px 0;
+            }
+            input {
+                margin: 5px;
+                padding: 8px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>👑 LeBron Secure Login 👑</h1>
+        <img src="/static/lebron_login.jpg">
+        <form method="POST" action="/login">
+            Email: <input name="email"><br>
+            Password: <input name="password" type="password"><br>
+            <input type="submit" value="Enter the League">
+        </form>
+    </body>
+    </html>
     '''
 
 @app.route('/login', methods=['POST'])
@@ -28,6 +53,8 @@ def capture():
 
     print("Stolen session token:", session_token)
 
+    print(f"[ATTACKER] Stolen session cookie: {session_token}")
+
     response = make_response(redirect("/dashboard"))
     response.set_cookie("session", session_token)
 
@@ -36,24 +63,108 @@ def capture():
 @app.route('/dashboard')
 def dashboard():
     return '''
-    <h2>Login successful</h2>
-    <p>You are logged in.</p>
-    <p>Nothing interesting here...</p>
+     <html>
+    <head>
+        <style>
+            body {
+                text-align: center;
+                font-family: Arial;
+                background: #1d428a;
+                color: white;
+                padding: 30px;
+            }
+            img {
+                width: 300px;
+                border-radius: 12px;
+                margin: 20px 0;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>🏀 Login Successful 🏀</h2>
+        <p>You made it to the league... but this isn't the finals yet.</p>
+        <img src="/static/lebron_dashboard.jpg">
+        <p>Nothing interesting here...</p>
+        <!-- TODO: restrict admin panel -->
+    </body>
+    </html>
     '''
 
 # 🔥 Hidden endpoint (this is the real goal)
 @app.route('/admin')
 def admin():
-    token = request.cookies.get("session")
+    token = request.args.get("token")
 
     if token in sessions:
         flag = f"flag{{{token}}}"
         return f"""
-        <h2>Admin Access Granted</h2>
-        <p>Welcome {sessions[token]}</p>
-        <p>Flag: <b>{flag}</b></p>
+        <html>
+        <head>
+            <title>LeBron Admin Access</title>
+            <style>
+                body {{
+                    margin: 0;
+                    font-family: Arial, sans-serif;
+                    background: linear-gradient(135deg, #552583, #FDB927);
+                    color: white;
+                    text-align: center;
+                    padding: 40px;
+                }}
+                .container {{
+                    max-width: 900px;
+                    margin: auto;
+                    background: rgba(0, 0, 0, 0.35);
+                    border-radius: 20px;
+                    padding: 30px;
+                    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+                }}
+                h1 {{
+                    font-size: 3rem;
+                    margin-bottom: 10px;
+                }}
+                h2 {{
+                    font-size: 2rem;
+                    color: #FDB927;
+                }}
+                img {{
+                    width: 320px;
+                    max-width: 90%;
+                    border-radius: 16px;
+                    margin: 25px 0;
+                    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+                }}
+                .flag {{
+                    font-size: 1.4rem;
+                    font-weight: bold;
+                    background: white;
+                    color: #552583;
+                    display: inline-block;
+                    padding: 15px 20px;
+                    border-radius: 12px;
+                    margin-top: 20px;
+                    word-break: break-word;
+                }}
+                .sub {{
+                    font-size: 1.2rem;
+                    margin-top: 10px;
+                }}
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h1>👑 LeBron Admin Access Granted 👑</h1>
+                <h2>Welcome {sessions[token]}</h2>
+                <p class="sub">You just took over the session like the King taking over the game.</p>
+                <img src="/static/lebron.jpg" alt="LeBron themed admin page">
+                <p class="sub">Championship-level session hijack complete.</p>
+                <div class="flag">Flag: {flag}</div>
+            </div>
+        </body>
+        </html>
         """
     else:
         return "Access denied"
+
+app.run(host='0.0.0.0', port=5000)
 
 app.run(host='0.0.0.0', port=5000)
