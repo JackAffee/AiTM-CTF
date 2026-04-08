@@ -50,31 +50,14 @@ Log into the system, identify the session token, and use it to access a restrict
 
 ## How to Solve
 
-1. Go to the login page
 
-2. Enter any email and password
+Log into the application and analyze how authentication is handled. Identify any session-related data that may grant access to protected resources.
 
-3. Submit the form
-
-4. You will be redirected to a normal dashboard (no flag shown)
-
-5. Open your browser developer tools
-
-6. Navigate to the **Application → Cookies** section
-
-7. Locate the cookie named `session`
-
-8. Use this session to access the hidden endpoint:
-
-       http://localhost:5000/admin
-
-9. If the session is valid, the flag will be displayed
+Use this information to access the restricted endpoint and retrieve the flag.
 
 ---
 
 ## Flag Format
-
-`flag{session_token}`
 
 Example:
 
@@ -85,10 +68,10 @@ Example:
 ## Hints
 
 **Hint 1:**  
-The flag is not on the main page. Try exploring other endpoints.
+The flag is not on the dashboard. There may be an admin-related endpoint worth exploring.
 
 **Hint 2:**  
-Check your browser cookies after logging in.
+Authentication often relies on tokens. Look for session-related data in your browser and consider how it might be reused.
 
 ---
 
