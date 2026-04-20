@@ -75,7 +75,7 @@ Example:
 The flag is not on the dashboard. There may be an admin-related endpoint worth exploring. Experiment with changing the URL.
 
 **Hint 2:**  
-Authentication often relies on tokens. Look for session-related data in your browser and consider how it might be reused. ?=🍪
+Authentication often relies on tokens. Look for session-related data in your browser and consider how it might be reused. admin?token=
 
 ---
 
