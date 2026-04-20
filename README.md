@@ -26,6 +26,8 @@ Log into the system, identify the session token, and use it to access a restrict
 
 ## Setup Instructions
 
+0. Download the full zip containing the Static folder, README.md, and app.p
+
 1. Make sure Python is installed
 
 2. Install Flask:
