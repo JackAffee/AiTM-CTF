@@ -28,25 +28,27 @@ Log into the system, identify the session token, and use it to access a restrict
 
 0. Download the full zip containing the Static folder, README.md, and app.p
 
-1. Make sure Python is installed
+1. Open terminal, navigate to the folder, and make sure Python is installed
 
-2. Install Flask:
+       python --version
+
+3. Install Flask in the folder:
 
        pip install flask
 
-3. Run the server:
+4. Run the server:
 
        python app.py
 
-4. After running the server, you should see a message like:
+5. After running the server, you should see a message like:
 
        Running on http://127.0.0.1:5000
 
-5. Open your browser and go to:
+6. Open your browser and go to:
 
        http://localhost:5000
 
-6. You should now see the login page
+7. You should now see the login page
 
 ---
 
